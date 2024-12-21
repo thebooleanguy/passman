@@ -1,5 +1,32 @@
 # A program to encrypt and save your passwords securely
 
+require 'openssl'
+
+
+# A function to derive a key from my master password
+def generate_key(master_password)
+  OpenSSL::KDF.pbkdf2_hmac(master_password, salt: "Massive04-Brain10-Rot03", iterations: 5000, length: 32, hash: "sha256")
+end
+
+data = "SecureData01"
+key = generate_key("passwordx12334abcdd")
+puts key
+
+cipher = OpenSSL::Cipher.new('aes-256-cfb')
+cipher.key = key
+iv = cipher.random_iv
+
+encrypted = cipher.update(data) + cipher.final
+puts encrypted
+
+decipher = OpenSSL::Cipher.new('aes-256-cfb')
+decipher.key = key
+decipher.iv = iv
+
+plain = decipher.update(encrypted) + decipher.final
+puts plain
+
+
 
 # A function to prompt and get input from the user
 def prompt_user(prompt)
@@ -7,7 +34,6 @@ def prompt_user(prompt)
   gets.chomp
 end
 
-# A function to derive a key from my master password
 
 # A function to authenticate my master password
 
@@ -15,12 +41,12 @@ end
 
 # A function to decrypt my data using the key
 
+# A function to load the encrypted data from disk
+
 # A function to save the encrypted data to disk
 
 # A function to output the decryped data to the user
 
-# Main function
-puts prompt_user("name: ")
 
 
 
