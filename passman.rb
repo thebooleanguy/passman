@@ -1,6 +1,11 @@
 # A program to encrypt and save your passwords securely
 
+
 # A function to prompt and get input from the user
+def prompt_user(prompt)
+  print prompt
+  gets.chomp
+end
 
 # A function to derive a key from my master password
 
@@ -13,6 +18,10 @@
 # A function to save the encrypted data to disk
 
 # A function to output the decryped data to the user
+
+# Main function
+puts prompt_user("name: ")
+
 
 
 ### Developer Notes:
